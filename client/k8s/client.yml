@@ -15,21 +15,21 @@ spec:
         app: client
     spec:
       containers:
-        - name: client
-          image: client-srv:latest
-          imagePullPolicy: IfNotPresent
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
-            limits:
-              cpu: "500m"
-              memory: "256Mi"
-          env:
-            - name: APP_PORT
-              value: "3000"
-          ports:
-          - containerPort: 3000
+      - name: client
+        image: client-srv:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        env:
+          - name: APP_PORT
+            value: "3000"
+        ports:
+        - containerPort: 3000
 ---
 apiVersion: v1
 kind: Service

@@ -17,7 +17,7 @@ spec:
       containers:
       - name: query
         image: query-srv:latest
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: "100m"
