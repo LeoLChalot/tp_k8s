@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: posts-clusterip
-        image: posts-clusterip-srv:latest
+        image: leolchalot/posts-clusterip-srv:latest
         imagePullPolicy: IfNotPresent
         resources:
           requests:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: comments
-          image: comments-srv:latest
+          image: leolchalot/comments-srv:latest
           imagePullPolicy: IfNotPresent
           resources:
             requests:

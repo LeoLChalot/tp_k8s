@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: event-bus
-          image: event-bus-srv:latest
+          image: leolchalot/event-bus-srv:latest
           imagePullPolicy: IfNotPresent
           resources:
             requests:
