@@ -17,6 +17,7 @@ spec:
       containers:
         - name: client
           image: client-srv:latest
+          imagePullPolicy: IfNotPresent
           resources:
             requests:
               cpu: "100m"
