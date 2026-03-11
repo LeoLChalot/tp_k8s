@@ -13,27 +13,28 @@ spec:
     metadata:
       labels:
         app: query
-  spec:
-    containers:
+    spec:
+      containers:
       - name: query
         image: query-srv:latest
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: "100m"
             memory: "128Mi"
           limits:
             cpu: "500m"
-          memory: "256Mi"
+            memory: "256Mi"
         env:
           - name: APP_PORT
             value: "4002"
         ports:
-          - containerPort: 4002
+        - containerPort: 4002
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: query-clusterip-srv
+  name: query-srv
 spec:
   type: ClusterIP
   ports:
