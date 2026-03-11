@@ -1,7 +1,10 @@
-FROM node:iron-trixie-slim
+FROM node:iron-trixie-slim AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm install -y
 COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
