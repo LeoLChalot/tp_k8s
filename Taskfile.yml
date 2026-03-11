@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+  POSTS: posts-clusterip-srv
+  CLIENT: client-srv
+  COMMENTS: comments-srv
+  MODERATION: moderation-srv
+  EVENT: event-bus-srv
+  QUERY: query-srv
+
+tasks:
+  default:
+    desc: Print a greeting message
+    cmds:
+      - echo "Hello !"
+    silent: true
+  build-client:
+    desc: Build Client images
+    cmds:
+      - docker build -t {{.CLIENT}} ./client
+  build-comments:
+    desc: Build Comments image
+    cmds:
+      - docker build -t {{.COMMENTS}} ./comments
+  build-event-bus:
+    desc: Build Event-Bus image
+    cmds:
+      - docker build -t {{.EVENT}} ./event-bus
+  build-moderation:
+    desc: Build Moderation image
+    cmds:
+      - docker build -t {{.MODERATION}} ./moderation
+  build-posts:
+    desc: Build Posts image
+    cmds:
+      - docker build -t {{.POSTS}} ./posts
+  build-query:
+    desc: Build Query image
+    cmds:
+      - docker build -t {{.QUERY}} ./query
+  build-images:
+    desc: Build all the Dockerfile
+    cmds:
+      - task: build-client
+      - task: build-comments
+      - task: build-event-bus
+      - task: build-moderation
+      - task: build-posts
+      - task: build-query
