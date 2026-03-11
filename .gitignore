@@ -1,5 +1,4 @@
 infra
-
 **/node_modules
 **/dist
 **/build
