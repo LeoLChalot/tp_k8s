@@ -17,7 +17,7 @@ spec:
       containers:
       - name: query
         image: query-srv:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Never
         resources:
           requests:
             cpu: "100m"
@@ -34,7 +34,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: query-clusterip-srv
+  name: query-srv
 spec:
   type: ClusterIP
   ports:
