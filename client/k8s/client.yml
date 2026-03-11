@@ -5,7 +5,7 @@ metadata:
   labels:
     app: client
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: client
@@ -38,7 +38,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 3000
+  - port: 80
     targetPort: 80
   selector:
     app: client
