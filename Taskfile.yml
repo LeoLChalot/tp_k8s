@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+vars:
+  GREETING: Hello, world!
+  POSTS_SERVICE: posts-clusterip-srv
+  CLIENT_SERVICE: client-srv
+  COMMENTS_SERVICE: comments-srv
+  MODERATION_SERVICE: moderation-srv
+  EVENT_SERVICE: event-bus-srv
+  QUERY_SERVICE: query-srv
+
+tasks:
+  default:
+    desc: Print a greeting message
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+  build-images:
+    desc: Build all the Dockerfile
+    cmds:
+      - docker build -t {{.POSTS_SERVICE}} ./post
+      - docker build -t {{.CLIENT_SERVICE}} ./client
+      - docker build -t {{.COMMENTS_SERIVCE}} ./comments
+      - docker build -t {{.MODERATION_SERVICE}} ./moderation
+      - docker build -t {{.EVENT_SERVICE}} ./event-bus
+      - docker build -t {{.QUERY_SERVICE}} ./query
