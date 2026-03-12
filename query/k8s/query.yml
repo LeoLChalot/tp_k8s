@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: query
-        image: leolchalot/query-srv:latest
+        image: query-srv:latest
         imagePullPolicy: IfNotPresent
         resources:
           requests:

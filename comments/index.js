@@ -1,40 +1,56 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { randomBytes } = require("crypto");
 const cors = require("cors");
 const axios = require("axios");
+const mongoose = require("mongoose");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const commentsByPostId = {};
+const commentSchema = new mongoose.Schema({
+  content: String,
+  status: String,
+  postId: String,
+});
+const Comment = mongoose.model("Comment", commentSchema);
 
-app.get("/posts/:id/comments", (req, res) => {
-  res.send(commentsByPostId[req.params.id] || []);
+const connectDB = async () => {
+  try {
+    await mongoose.connect("mongodb://comments-mongo-srv:27017/comments");
+    console.log("Connected to MongoDB");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+  }
+};
+connectDB();
+
+app.get("/posts/:id/comments", async (req, res) => {
+  const comments = await Comment.find({ postId: req.params.id });
+  res.send(comments);
 });
 
 app.post("/posts/:id/comments", async (req, res) => {
-  const commentId = randomBytes(4).toString("hex");
   const { content } = req.body;
 
-  const comments = commentsByPostId[req.params.id] || [];
-
-  comments.push({ id: commentId, content, status: "pending" });
-
-  commentsByPostId[req.params.id] = comments;
+  const comment = new Comment({
+    content,
+    status: "pending",
+    postId: req.params.id,
+  });
+  await comment.save();
 
   await axios.post("http://event-bus-srv:4005/events", {
     type: "CommentCreated",
     data: {
-      id: commentId,
+      id: comment._id,
       content,
       postId: req.params.id,
       status: "pending",
     },
   });
 
-  res.status(201).send(comments);
+  res.status(201).send(comment);
 });
 
 app.post("/events", async (req, res) => {
@@ -44,12 +60,10 @@ app.post("/events", async (req, res) => {
 
   if (type === "CommentModerated") {
     const { postId, id, status, content } = data;
-    const comments = commentsByPostId[postId];
 
-    const comment = comments.find((comment) => {
-      return comment.id === id;
-    });
-    comment.status = status;
+    const comment = await Comment.findById(id);
+    comment.set({ status });
+    await comment.save();
 
     await axios.post("http://event-bus-srv:4005/events", {
       type: "CommentUpdated",
