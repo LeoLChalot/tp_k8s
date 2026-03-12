@@ -7,7 +7,8 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-  - http:
+  - host: kube.local
+    http:
       paths:
       - path: /posts/create
         pathType: Prefix
@@ -24,14 +25,14 @@ spec:
             port:
               number: 4002
       - path: /posts/?(.*)/comments
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: comments-srv
             port:
               number: 4001
       - path: /?(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: client-srv

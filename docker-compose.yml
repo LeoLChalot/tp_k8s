@@ -50,4 +50,3 @@ services:
       - posts-clusterip-srv
       - query-srv
       - comments-srv
-      
