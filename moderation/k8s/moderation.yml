@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: moderation
-          image: moderation-srv:latest
+          image: leolchalot/moderation-srv:latest
           imagePullPolicy: IfNotPresent
           resources:
             requests:

@@ -1,4 +1,4 @@
-FROM node:iron-trixie-slim AS builder
+FROM node:alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm install -y
@@ -7,4 +7,5 @@ RUN npm run build
 
 FROM nginx:trixie
 COPY --from=builder /app/build /usr/share/nginx/html
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80

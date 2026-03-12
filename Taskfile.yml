@@ -49,3 +49,7 @@ tasks:
       - task: build-moderation
       - task: build-posts
       - task: build-query
+  terminal:
+    desc: Open a terminal in the client container
+    cmds:
+      - docker exec -it {{.CLI_ARGS}} bash
