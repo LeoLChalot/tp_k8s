@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: event-bus
-          image: event-bus-srv:latest
-          imagePullPolicy: IfNotPresent
+          image: leolchalot/event-bus-srv:latest
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"

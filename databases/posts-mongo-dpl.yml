@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: posts-mongo-dpl
+  labels:
+    app: posts-mongo
 spec:
   replicas: 1
   selector:
@@ -37,6 +39,7 @@ kind: Service
 metadata:
   name: posts-mongo-srv
 spec:
+  type: ClusterIP
   selector:
     app: posts-mongo
   ports:

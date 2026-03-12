@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: comments
-          image: comments-srv:latest
-          imagePullPolicy: IfNotPresent
+          image: leolchalot/comments-srv:latest
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"

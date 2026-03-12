@@ -1,18 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: comments-mongo-dpl
-  labels:
-    app: comments-mongo
+  name: query-mongo-dpl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: comments-mongo
+      app: query-mongo
   template:
     metadata:
       labels:
-        app: comments-mongo
+        app: query-mongo
     spec:
       containers:
         - name: mongo
@@ -32,16 +30,15 @@ spec:
       volumes:
         - name: mongo-storage
           persistentVolumeClaim:
-            claimName: comments-mongo-pvc
+            claimName: query-mongo-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: comments-mongo-srv
+  name: query-mongo-srv
 spec:
-  type: ClusterIP
   selector:
-    app: comments-mongo
+    app: query-mongo
   ports:
     - protocol: TCP
       port: 27017

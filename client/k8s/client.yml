@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: client
-          image: client-srv:latest
-          imagePullPolicy: IfNotPresent
+          image: leolchalot/client-srv:latest
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"

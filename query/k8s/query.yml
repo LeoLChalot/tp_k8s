@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: query
-        image: query-srv:latest
-        imagePullPolicy: IfNotPresent
+        image: leolchalot/query-srv:latest
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: "100m"

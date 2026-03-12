@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: moderation
-          image: moderation-srv:latest
-          imagePullPolicy: IfNotPresent
+          image: leolchalot/moderation-srv:latest
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: "100m"
