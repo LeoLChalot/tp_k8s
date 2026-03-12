@@ -25,8 +25,6 @@ services:
       context: ./query
     ports:
       - "4002:4002"
-    #depends_on:
-    #  - event-bus-srv
     restart: always
 
   moderation-srv:
@@ -39,12 +37,16 @@ services:
   client-srv:
     build: 
       context: ./client
+    restart: always
+
+  ingress-proxy:
+    image: nginx:latest
     ports:
       - "80:80"
+    volumes:
+      - ./nginx-proxy.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
-      - query-srv
+      - client-srv
       - posts-clusterip-srv
+      - query-srv
       - comments-srv
-      - event-bus-srv
-      - moderation-srv
-    restart: always
