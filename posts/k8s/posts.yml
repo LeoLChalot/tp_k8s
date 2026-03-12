@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: posts-clusterip
-        image: posts-clusterip-srv:latest
-        imagePullPolicy: IfNotPresent
+        image: leolchalot/posts-clusterip-srv:latest
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: "100m"
