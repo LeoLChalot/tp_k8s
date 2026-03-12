@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  event-bus-srv:
+    build: 
+      context: ./event-bus
+    ports:
+      - "4005:4005"
+    restart: always
+
+  posts-clusterip-srv:
+    build: 
+      context: ./posts
+    ports:
+      - "4000:4000"
+    restart: always
+
+  comments-srv:
+    build: 
+      context: ./comments
+    ports:
+      - "4001:4001"
+    restart: always
+
+  query-srv:
+    build: 
+      context: ./query
+    ports:
+      - "4002:4002"
+    #depends_on:
+    #  - event-bus-srv
+    restart: always
+
+  moderation-srv:
+    build: 
+      context: ./moderation
+    ports:
+      - "4003:4003"
+    restart: always
+
+  client-srv:
+    build: 
+      context: ./client
+    ports:
+      - "80:80"
+    depends_on:
+      - query-srv
+      - posts-clusterip-srv
+      - comments-srv
+      - event-bus-srv
+      - moderation-srv
+    restart: always
