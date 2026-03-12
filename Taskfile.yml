@@ -53,3 +53,24 @@ tasks:
     desc: Open a terminal in the client container
     cmds:
       - docker exec -it {{.CLI_ARGS}} bash
+  reset-deploys:
+    desc: delete and apply all project deploy
+    cmds:
+      - kubectl delete deploy client-dpl
+      - kubectl delete deploy comments-dpl
+      - kubectl delete deploy event-bus-dpl
+      - kubectl delete deploy moderation-dpl
+      - kubectl delete deploy posts-mongo-dpl
+      - kubectl delete deploy query-dpl
+      - kubectl delete deploy comments-mongo-dpl
+      - kubectl delete deploy posts-clusterip-dpl
+      - kubectl delete deploy query-mongo-dpl
+      - kubectl apply -f .\\client\\k8s\\client.yml
+      - kubectl apply -f .\\comments\\k8s\\comments.yml
+      - kubectl apply -f .\\event-bus\\k8s\\event-bus.yml
+      - kubectl apply -f .\\moderation\\k8s\\moderation.yml
+      - kubectl apply -f .\\posts\\k8s\\posts.yml
+      - kubectl apply -f .\\query\\k8s\\query.yml
+      - kubectl apply -f .\\databases\\comments-mongo-dpl.yml
+      - kubectl apply -f .\\databases\\posts-mongo-dpl.yml
+      - kubectl apply -f .\\databases\\query-mongo-dpl.yml
