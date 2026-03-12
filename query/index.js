@@ -65,8 +65,10 @@ const handleEvent = async (type, data) => {
 };
 
 app.get("/posts", async (req, res) => {
+  console.log("Requete posts reçue")
   const posts = await Post.find({});
   res.send(posts);
+  console.log(posts)
 });
 
 app.post("/events", async (req, res) => {
