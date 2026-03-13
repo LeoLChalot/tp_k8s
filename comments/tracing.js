@@ -15,7 +15,6 @@ const sdk = new opentelemetry.NodeSDK({
 
 sdk.start();
 
-// Gérer l'arrêt propre
 process.on('SIGTERM', () => {
   sdk.shutdown().then(() => console.log('Tracing terminated')).catch((error) => console.log('Error terminating tracing', error)).finally(() => process.exit(0));
 });
